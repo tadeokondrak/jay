@@ -274,6 +274,12 @@ impl Node for WorkspaceNode {
     fn node_do_focus(self: Rc<Self>, seat: &Rc<WlSeatGlobal>, direction: Direction) {
         if let Some(fs) = self.fullscreen.get() {
             fs.tl_into_node().node_do_focus(seat, direction);
+        } else if let Some(stacked) = self.stacked.first() {
+            if let Some(float) = Rc::clone(&stacked).node_into_float() {
+                if let Some(child) = float.child.get() {
+                    child.node_do_focus(seat, direction);
+                }
+            }
         } else if let Some(container) = self.container.get() {
             container.node_do_focus(seat, direction);
         }
