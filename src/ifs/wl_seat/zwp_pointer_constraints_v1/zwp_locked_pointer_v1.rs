@@ -23,6 +23,7 @@ impl ZwpLockedPointerV1RequestHandler for ZwpLockedPointerV1 {
     type Error = ZwpLockedPointerV1Error;
 
     fn destroy(&self, _req: Destroy, _slf: &Rc<Self>) -> Result<(), Self::Error> {
+        self.constraint.warp_to_hint();
         self.constraint.detach();
         self.constraint.client.remove_obj(self)?;
         Ok(())
@@ -30,9 +31,10 @@ impl ZwpLockedPointerV1RequestHandler for ZwpLockedPointerV1 {
 
     fn set_cursor_position_hint(
         &self,
-        _req: SetCursorPositionHint,
+        req: SetCursorPositionHint,
         _slf: &Rc<Self>,
     ) -> Result<(), Self::Error> {
+        self.constraint.cursor_position_hint.set(Some((req.surface_x, req.surface_y)));
         Ok(())
     }
 
