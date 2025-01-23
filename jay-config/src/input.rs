@@ -62,6 +62,10 @@ impl InputDevice {
         get!().set_accel_speed(self, speed);
     }
 
+    pub fn set_accel_factor(self, factor: f64) {
+        get!().set_accel_factor(self, factor);
+    }
+
     /// Sets the transformation matrix of the device.
     ///
     /// This is not a libinput setting but a setting of the compositor. It currently affects

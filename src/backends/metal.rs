@@ -371,6 +371,7 @@ struct MetalInputDevice {
     cb: CloneCell<Option<Rc<dyn Fn()>>>,
     name: CloneCell<Rc<String>>,
     transform_matrix: Cell<Option<TransformMatrix>>,
+    accel_factor: Cell<f64>,
     tablet_id: Cell<Option<TabletId>>,
     tablet_pad_id: Cell<Option<TabletPadId>>,
 
@@ -588,6 +589,10 @@ impl InputDevice for MetalInputDevice {
         self.transform_matrix.set(Some(matrix));
     }
 
+    fn set_accel_factor(&self, factor: f64) {
+        self.accel_factor.set(factor);
+    }
+
     fn name(&self) -> Rc<String> {
         self.name.get()
     }
@@ -664,6 +669,10 @@ impl InputDevice for MetalInputDevice {
 
     fn transform_matrix(&self) -> Option<TransformMatrix> {
         self.transform_matrix.get()
+    }
+
+    fn accel_factor(&self) -> f64 {
+        self.accel_factor.get()
     }
 
     fn tap_enabled(&self) -> Option<bool> {

@@ -691,6 +691,17 @@ impl ConfigProxyHandler {
         Ok(())
     }
 
+
+    fn handle_set_accel_factor(
+        &self,
+        device: InputDevice,
+        factor: f64,
+    ) -> Result<(), CphError> {
+        let dev = self.get_device_handler_data(device)?;
+        dev.device.set_accel_factor(factor);
+        Ok(())
+    }
+
     fn handle_set_calibration_matrix(
         &self,
         device: InputDevice,
@@ -1980,6 +1991,9 @@ impl ConfigProxyHandler {
             ClientMessage::SetXScalingMode { mode } => self
                 .handle_set_x_scaling_mode(mode)
                 .wrn("set_x_scaling_mode")?,
+            ClientMessage::SetAccelFactor { device, factor } => self
+                .handle_set_accel_factor(device, factor)
+                .wrn("set_accel_factor")?,
         }
         Ok(())
     }

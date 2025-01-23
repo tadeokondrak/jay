@@ -333,6 +333,7 @@ impl MetalBackend {
             pressed_buttons: Default::default(),
             desired: Default::default(),
             transform_matrix: Default::default(),
+            accel_factor: Cell::new(1.0),
             effective: Default::default(),
             tablet_id: Default::default(),
             tablet_pad_id: Default::default(),

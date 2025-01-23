@@ -232,18 +232,24 @@ impl MetalBackend {
         let (event, dev) = unpack!(self, event, pointer_event);
         let mut dx = event.dx();
         let mut dy = event.dy();
+        let dx_unaccelerated = event.dx_unaccelerated();
+        let dy_unaccelerated = event.dy_unaccelerated();
         if let Some(matrix) = dev.transform_matrix.get() {
             (dx, dy) = (
                 matrix[0][0] * dx + matrix[0][1] * dy,
                 matrix[1][0] * dx + matrix[1][1] * dy,
             );
         }
+        let accel_func = |v| 1.0 + dev.accel_factor.get() * v;
+        let accel_factor = accel_func(f64::sqrt(
+            dx_unaccelerated * dx_unaccelerated + dy_unaccelerated * dy_unaccelerated,
+        ));
         dev.event(InputEvent::Motion {
             time_usec: event.time_usec(),
             dx: Fixed::from_f64(dx),
             dy: Fixed::from_f64(dy),
-            dx_unaccelerated: Fixed::from_f64(event.dx_unaccelerated()),
-            dy_unaccelerated: Fixed::from_f64(event.dy_unaccelerated()),
+            dx_unaccelerated: Fixed::from_f64(dx_unaccelerated * accel_factor),
+            dy_unaccelerated: Fixed::from_f64(dy_unaccelerated * accel_factor),
         });
     }
 

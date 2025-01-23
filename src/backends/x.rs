@@ -1214,6 +1214,10 @@ impl InputDevice for XSeatKeyboard {
     fn set_natural_scrolling_enabled(&self, enabled: bool) {
         let _ = enabled;
     }
+
+    fn set_accel_factor(&self, matrix: f64) {
+        let _ = matrix;
+    }
 }
 
 impl InputDevice for XSeatMouse {
@@ -1282,5 +1286,9 @@ impl InputDevice for XSeatMouse {
 
     fn set_natural_scrolling_enabled(&self, enabled: bool) {
         let _ = enabled;
+    }
+
+    fn set_accel_factor(&self, matrix: f64) {
+        let _ = matrix;
     }
 }

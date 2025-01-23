@@ -919,6 +919,9 @@ impl Client {
     pub fn set_accel_speed(&self, device: InputDevice, speed: f64) {
         self.send(&ClientMessage::SetAccelSpeed { device, speed })
     }
+    pub fn set_accel_factor(&self, device: InputDevice, factor: f64) {
+        self.send(&ClientMessage::SetAccelFactor { device, factor })
+    }
 
     pub fn set_transform_matrix(&self, device: InputDevice, matrix: [[f64; 2]; 2]) {
         self.send(&ClientMessage::SetTransformMatrix { device, matrix })

@@ -527,6 +527,10 @@ pub enum ClientMessage<'a> {
     SetXScalingMode {
         mode: XScalingMode,
     },
+    SetAccelFactor {
+        device: InputDevice,
+        factor: f64,
+    },
 }
 
 #[derive(Serialize, Deserialize, Debug)]

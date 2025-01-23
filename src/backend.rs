@@ -184,6 +184,10 @@ pub trait InputDevice {
         None
     }
     fn set_transform_matrix(&self, matrix: TransformMatrix);
+    fn accel_factor(&self) -> f64 {
+        1.0
+    }
+    fn set_accel_factor(&self, matrix: f64);
     fn calibration_matrix(&self) -> Option<[[f32; 3]; 2]> {
         None
     }
