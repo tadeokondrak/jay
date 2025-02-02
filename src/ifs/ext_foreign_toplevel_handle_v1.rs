@@ -1,9 +1,11 @@
 use {
+    super::ext_foreign_toplevel_handle_state_v1::ExtForeignToplevelHandleStateV1,
     crate::{
         client::{Client, ClientError},
         leaks::Tracker,
         object::{Object, Version},
         tree::ToplevelOpt,
+        utils::clonecell::CloneCell,
         wire::{ExtForeignToplevelHandleV1Id, ext_foreign_toplevel_handle_v1::*},
     },
     std::rc::Rc,
@@ -16,6 +18,7 @@ pub struct ExtForeignToplevelHandleV1 {
     pub tracker: Tracker<Self>,
     pub toplevel: ToplevelOpt,
     pub version: Version,
+    pub toplevel_state: CloneCell<Option<Rc<ExtForeignToplevelHandleStateV1>>>,
 }
 
 impl ExtForeignToplevelHandleV1 {
@@ -64,6 +67,12 @@ impl ExtForeignToplevelHandleV1 {
             self_id: self.id,
             identifier,
         });
+    }
+
+    pub fn send_state(&self, active: bool, fullscreen: bool) {
+        if let Some(state) = self.toplevel_state.get() {
+            state.send_state(active, fullscreen);
+        }
     }
 }
 
