@@ -119,6 +119,7 @@ impl ExtForeignToplevelListV1 {
             tracker: Default::default(),
             toplevel: tl,
             version: self.version,
+            toplevel_state: Default::default(),
         });
         track!(self.client, handle);
         self.client.add_server_obj(&handle);

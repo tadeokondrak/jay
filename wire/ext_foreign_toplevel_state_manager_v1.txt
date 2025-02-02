@@ -1,0 +1,76 @@
+# requests
+request destroy {
+}
+
+# events
+
+request close {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request set_maximized {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request unset_maximized {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request set_minimized {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request unset_minimized {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request set_fullscreen {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+    output: id(wl_output),
+}
+
+request unset_fullscreen {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request activate {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+    seat: id(wl_seat),
+}
+
+request set_always_on_top {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request unset_always_on_top {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request set_sticky {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request unset_sticky {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request set_shaded {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request unset_shaded {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+}
+
+request set_rectangle {
+    toplevel: id(ext_foreign_toplevel_handle_v1),
+    surface: id(wl_surface),
+    x: i32,
+    y: i32,
+    width: i32,
+    height: i32,
+}
+
+event capabilities {
+    capabilities: u32,
+}
