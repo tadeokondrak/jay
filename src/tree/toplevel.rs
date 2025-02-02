@@ -325,6 +325,10 @@ impl ToplevelData {
             if let Some(parent) = self.parent.get() {
                 parent.node_child_active_changed(tl.tl_as_node(), active_new, 1);
             }
+            for handle in self.handles.lock().values() {
+                handle.send_state(self.active(), self.is_fullscreen.get());
+                handle.send_done();
+            }
         }
     }
 
@@ -397,6 +401,11 @@ impl ToplevelData {
         self.send_once(&toplevel, list, &id, &title, &app_id);
     }
 
+    pub fn send_extra_toplevel_state(&self, handle: &ExtForeignToplevelHandleV1) {
+        handle.send_state(self.active(), self.is_fullscreen.get());
+        handle.send_done();
+    }
+
     fn send_once(
         &self,
         toplevel: &Rc<dyn ToplevelNode>,
@@ -416,6 +425,7 @@ impl ToplevelData {
         handle.send_identifier(id);
         handle.send_title(title);
         handle.send_app_id(app_id);
+        handle.send_state(self.active(), self.is_fullscreen.get());
         handle.send_done();
         self.handles
             .set((handle.client.id, handle.id), handle.clone());
@@ -494,6 +504,10 @@ impl ToplevelData {
         });
         drop(data);
         self.is_fullscreen.set(true);
+        for handle in self.handles.lock().values() {
+            handle.send_state(self.active(), self.is_fullscreen.get());
+            handle.send_done();
+        }
         node.tl_set_parent(ws.clone());
         ws.set_fullscreen_node(&node);
         node.clone()
@@ -518,6 +532,10 @@ impl ToplevelData {
             }
         };
         self.is_fullscreen.set(false);
+        for handle in self.handles.lock().values() {
+            handle.send_state(self.active(), self.is_fullscreen.get());
+            handle.send_done();
+        }
         match fd.workspace.fullscreen.get() {
             None => {
                 log::error!("Node is supposed to be fullscreened on a workspace but workspace has not fullscreen node.");

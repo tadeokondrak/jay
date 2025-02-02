@@ -1,0 +1,22 @@
+# requests
+
+request destroy {
+}
+
+# events
+
+event state {
+    states: u32,
+}
+
+event output_enter {
+    output: id(wl_output),
+}
+
+event output_leave {
+    output: id(wl_output),
+}
+
+event parent {
+    parent: id(ext_foreign_toplevel_handle_v1),
+}
