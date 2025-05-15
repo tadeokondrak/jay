@@ -53,7 +53,7 @@ impl OutBuffer {
     }
 }
 
-const LIMIT_PENDING: usize = 10;
+const LIMIT_PENDING: usize = 256;
 
 #[derive(Default)]
 pub struct OutBufferSwapchain {

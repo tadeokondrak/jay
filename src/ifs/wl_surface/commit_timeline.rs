@@ -39,7 +39,7 @@ use {
     uapi::{OwnedFd, c::c_short},
 };
 
-const MAX_TIMELINE_DEPTH: usize = 256;
+const MAX_TIMELINE_DEPTH: usize = 4096;
 
 linear_ids!(CommitTimelineIds, CommitTimelineId, u64);
 
