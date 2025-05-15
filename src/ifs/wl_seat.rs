@@ -402,6 +402,9 @@ impl WlSeatGlobal {
     }
 
     pub fn get_output(&self) -> Rc<OutputNode> {
+        if let Some(output) = self.get_keyboard_output() {
+            return output;
+        }
         self.cursor_user_group.latest_output()
     }
 
