@@ -32,7 +32,7 @@ pub fn did_elevate_scheduler() -> bool {
 }
 
 fn dont_allow_realtime_config_so() -> bool {
-    option_env!(jay_allow_realtime_config_so!()).unwrap_or_default() != "1"
+    false
 }
 
 pub fn dont_allow_config_so() -> bool {
