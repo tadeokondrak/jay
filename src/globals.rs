@@ -18,7 +18,7 @@ use {
                     zwlr_data_control_manager_v1::ZwlrDataControlManagerV1Global,
                 },
                 wl_data_device_manager::WlDataDeviceManagerGlobal,
-                zwp_primary_selection_device_manager_v1::ZwpPrimarySelectionDeviceManagerV1Global,
+                // zwp_primary_selection_device_manager_v1::ZwpPrimarySelectionDeviceManagerV1Global,
             },
             jay_compositor::JayCompositorGlobal,
             jay_damage_tracking::JayDamageTrackingGlobal,
@@ -187,7 +187,7 @@ impl Globals {
         add_singleton!(WlDataDeviceManagerGlobal);
         add_singleton!(ZxdgDecorationManagerV1Global);
         add_singleton!(OrgKdeKwinServerDecorationManagerGlobal);
-        add_singleton!(ZwpPrimarySelectionDeviceManagerV1Global);
+        // add_singleton!(ZwpPrimarySelectionDeviceManagerV1Global);
         add_singleton!(ZwlrLayerShellV1Global);
         add_singleton!(ZwlrOutputManagerV1Global);
         add_singleton!(ZxdgOutputManagerV1Global);
