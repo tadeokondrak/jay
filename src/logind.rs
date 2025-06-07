@@ -1,6 +1,6 @@
 use {
     crate::{
-        dbus::{DbusError, DbusSocket, FALSE, SignalHandler},
+        dbus::{DbusError, DbusSocket, FALSE, TRUE, SignalHandler},
         utils::errorfmt::ErrorFmt,
         wire_dbus::{
             org,
@@ -155,6 +155,15 @@ impl Session {
             &self.seat,
             org::freedesktop::login1::seat::SwitchTo { vtnr },
             f,
+        );
+    }
+
+    pub fn set_idle_hint(&self, idle: bool) {
+        let idle_bool = if idle { TRUE } else { FALSE };
+        self.socket.call_noreply(
+            LOGIND_NAME,
+            &self.session_path,
+            org::freedesktop::login1::session::SetIdleHint { idle: idle_bool },
         );
     }
 }

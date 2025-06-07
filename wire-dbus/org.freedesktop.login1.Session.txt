@@ -11,6 +11,9 @@ fn PauseDeviceComplete(major: u32, minor: u32) { }
 fn SetType(ty: string) {
 }
 
+fn SetIdleHint(idle: bool) {
+}
+
 prop Seat = struct(string, object_path)
 
 sig PauseDevice {

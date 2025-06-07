@@ -145,7 +145,7 @@ pub struct MetalBackend {
     libinput: Rc<LibInput>,
     libinput_fd: Rc<OwnedFd>,
     device_holder: Rc<DeviceHolder>,
-    session: Session,
+    pub session: Session,
     pause_handler: Cell<Option<SignalHandler>>,
     resume_handler: Cell<Option<SignalHandler>>,
     ctx: CloneCell<Option<Rc<MetalRenderContext>>>,

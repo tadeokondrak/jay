@@ -1,14 +1,15 @@
 use {
     crate::{
         backend::transaction::{BackendConnectorTransactionError, ConnectorTransaction},
+        backends::metal::MetalBackend,
         state::State,
         utils::{
             errorfmt::ErrorFmt,
             timer::{TimerError, TimerFd},
         },
     },
-    futures_util::{FutureExt, select},
-    std::{rc::Rc, time::Duration},
+    futures_util::{select, FutureExt},
+    std::{any::Any, rc::Rc, time::Duration},
     uapi::c,
 };
 
@@ -127,6 +128,10 @@ impl Idle {
     }
 
     fn set_idle(&self, idle: bool) {
+        let backend: Rc<MetalBackend> = (self.state.backend.get() as Rc<dyn Any>)
+            .downcast()
+            .unwrap();
+        backend.session.set_idle_hint(idle);
         if let Err(e) = self.try_set_idle(idle) {
             log::error!("Could not change idle status of backend: {}", ErrorFmt(e))
         }
